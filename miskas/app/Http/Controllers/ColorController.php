@@ -12,7 +12,11 @@ class ColorController extends Controller
      */
     public function index()
     {
-        //
+        $colors = Color::all();
+
+        return view('colors.index', [
+            'colors' => $colors
+        ]);
     }
 
     /**
@@ -20,7 +24,7 @@ class ColorController extends Controller
      */
     public function create()
     {
-        //
+        return view('colors.create');
     }
 
     /**
@@ -28,7 +32,12 @@ class ColorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $color = new Color;
+        $color->color = $request->color;
+        $color->author = $request->color_author ?? 'Anonymous';
+        $color->rate = $request->color_rate;
+        $color->save();
+        return redirect()->route('colors-index');
     }
 
     /**

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimalControler as A;
 use App\Http\Controllers\CalculatorController as C;
+use App\Http\Controllers\ColorController as R;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,11 @@ Route::get('/animals/racoon/{color?}', [A::class, 'racoon']);
 Route::get('/calculator', [C::class, 'showCalculator'])->name('calculator');
 Route::post('/calculator', [C::class, 'doCalculator'])->name('do-calculator');
 
-
+Route::prefix('colors')->name('colors-')->group(function () {
+    Route::get('/', [R::class, 'index'])->name('index'); // GET /colors from URL:  colors Name: colors-index
+    Route::get('/create', [R::class, 'create'])->name('create'); // GET /colors/create from URL:  colors/create Name: colors-create
+    Route::post('/', [R::class, 'store'])->name('store'); // POST /colors from URL:  colors Name: colors-store
+});
 
 Auth::routes();
 
