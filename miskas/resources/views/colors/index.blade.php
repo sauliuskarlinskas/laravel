@@ -24,8 +24,11 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <a class="btn btn-primary">
+                                            <a class="btn btn-success" href="{{ route('colors-edit', $color) }}">
                                                 Edit
+                                            </a>
+                                            <a class="btn btn-danger" href="{{ route('colors-delete', $color) }}">
+                                                Delete
                                             </a>
 
                                         </div>
