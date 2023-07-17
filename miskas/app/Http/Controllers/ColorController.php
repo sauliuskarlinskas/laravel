@@ -93,7 +93,7 @@ class ColorController extends Controller
                 'color.regex' => 'Color name must be in HEX format!',
 
                 'author_id.required' => 'Please select author!',
-                'author_id.integer' => 'Rate must be a number!',
+                'author_id.integer' => 'Id must be a number!',
 
                 'color_rate.required' => 'Please enter rate!',
                 'color_rate.integer' => 'Rate must be a number!',

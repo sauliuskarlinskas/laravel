@@ -5,6 +5,7 @@ use App\Http\Controllers\AnimalControler as An;
 use App\Http\Controllers\CalculatorController as C;
 use App\Http\Controllers\ColorController as R;
 use App\Http\Controllers\AuthorController as A;
+use App\Http\Controllers\TagController as T;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,20 @@ Route::prefix('authors')->name('authors-')->group(function () {
     Route::delete('/{author}', [A::class, 'destroy'])->name('destroy');
     Route::get('/edit/{author}', [A::class, 'edit'])->name('edit');
     Route::put('/{author}', [A::class, 'update'])->name('update');
+
+    Route::post('/tags/{author}', [A::class, 'addTag'])->name('add-tag');
+
+});
+
+Route::prefix('tags')->name('tags-')->group(function () {
+
+    Route::get('/', [T::class, 'index'])->name('index');
+    Route::get('/create', [T::class, 'create'])->name('create');
+    Route::post('/', [T::class, 'store'])->name('store');
+    Route::get('/delete/{tag}', [T::class, 'delete'])->name('delete');
+    Route::delete('/{tag}', [T::class, 'destroy'])->name('destroy');
+    Route::get('/edit/{tag}', [T::class, 'edit'])->name('edit');
+    Route::put('/{tag}', [T::class, 'update'])->name('update');
 
 });
 

@@ -19,14 +19,26 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div>
-                                            <a class="btn btn-success" href="{{ route('authors-edit', $author) }}">
-                                                Edit
-                                            </a>
-                                            <a class="btn btn-danger" href="{{ route('authors-delete', $author) }}">
-                                                Delete
-                                            </a>
+                                        <div class="index-buttons">
+                                            <form action={{ route('authors-add-tag', $author) }} method="post">
+                                                <select name="tag_id">
+                                                    @foreach ($tags as $tag)
+                                                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <button type="submit" class="btn btn-primary">Add tag</button>
+                                                @csrf
+                                            </form>
+                                            <div>
+                                                <a class="btn btn-success" href="{{ route('authors-edit', $author) }}">
+                                                    Edit
+                                                </a>
+                                                <a class="btn btn-danger" href="{{ route('authors-delete', $author) }}">
+                                                    Delete
+                                                </a>
+                                            </div>
                                         </div>
+                                       
                                     </div>
                                 </li>
                             @empty
