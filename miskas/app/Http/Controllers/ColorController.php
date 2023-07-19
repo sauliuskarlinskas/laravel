@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Validator;
 
 class ColorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -22,23 +27,23 @@ class ColorController extends Controller
         $filterBy = $request->filter_by ?? '';
         $filterValue = $request->filter_value ?? '0';
         $perPage = (int) $request->per_page ?? 20;
-        
+
         if ($request->s) {
 
-            $colors = Color::where('color', 'like', '%'.$request->s.'%')->paginate(20)->withQueryString();
-        
+            $colors = Color::where('color', 'like', '%' . $request->s . '%')->paginate(20)->withQueryString();
+
         } else {
-        
+
             $colors = Color::select('colors.*');
 
             //filtravimas
-            $colors = match($filterBy) {
+            $colors = match ($filterBy) {
                 'rate' => $colors->where('rate', '=', $filterValue),
                 default => $colors
             };
 
             //rikiavimas
-            $colors = match($sortBy) {
+            $colors = match ($sortBy) {
                 'color' => $colors->orderBy('color', $orderBy),
                 'rate' => $colors->orderBy('rate', $orderBy),
                 default => $colors
@@ -49,7 +54,7 @@ class ColorController extends Controller
 
         }
 
-        
+
         return view('colors.index', [
             'colors' => $colors,
             'sortBy' => $sortBy,

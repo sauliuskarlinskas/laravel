@@ -27,7 +27,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123'),
         ]);
 
-
         foreach (range(1, 20) as $_) {
             DB::table('authors')->insert([
                 'name' => $faker->name
@@ -46,6 +45,23 @@ class DatabaseSeeder extends Seeder
             DB::table('tags')->insert([
                 'name' => $faker->cityPrefix . $faker->streetSuffix
             ]);
+        }
+
+
+
+        foreach (range(1, 20) as $authorId) {
+
+            foreach (range(1, 30) as $tagId) {
+
+                if (!rand(0, 12)) {
+                    DB::table('author_tags')->insert([
+                        'author_id' => $authorId,
+                        'tag_id' => $tagId
+                    ]);
+                }
+
+            }
+
         }
     }
 }
