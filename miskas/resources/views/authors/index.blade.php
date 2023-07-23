@@ -1,3 +1,4 @@
+@inject('role', 'App\Services\RolesService')
 @extends('layouts.app')
 
 @section('content')
@@ -24,7 +25,7 @@
                                                                 action="{{ route('authors-remove-tag', [$author, $tag]) }}"
                                                                 method="post">
                                                                 <span class="badge bg-primary">{{ $tag->name }}</span>
-                                                                @if (Auth::user()->role >= 20)
+                                                                @if ($role->auth(['A', 'M']))
                                                                     <button type="submit"
                                                                         class="btn btn-danger btn-sm">X</button>
                                                                 @endif
@@ -33,7 +34,7 @@
                                                             </form>
                                                         @endforeach
                                                     </div>
-                                                    @if (Auth::user()->role >= 20)
+                                                    @if ($role->auth(['A', 'M']))
                                                         <div class="tag-create mt-1">
                                                             <form action="{{ route('authors-create-tag', $author) }}"
                                                                 method="post">
@@ -53,7 +54,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @if (Auth::user()->role >= 20)
+                                        @if ($role->auth(['A', 'M']))
                                             <div class="index-buttons">
                                                 <form action={{ route('authors-add-tag', $author) }} method="post">
                                                     <select name="tag_id">
@@ -65,7 +66,7 @@
                                                     @csrf
                                                 </form>
                                         @endif
-                                        @if (Auth::user()->role >= 100)
+                                        @if ($role->auth(['A']))
                                             <a class="btn btn-success" href="{{ route('authors-edit', $author) }}">
                                                 Edit
                                             </a>
