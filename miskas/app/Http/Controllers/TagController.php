@@ -105,6 +105,7 @@ class TagController extends Controller
     public function update(Request $request, Tag $tag)
     {
 
+        sleep(1);
         $validator = Validator::make(
             $request->all(),
             [
@@ -122,13 +123,17 @@ class TagController extends Controller
             return response()->json([
                 'status' => 'error',
                 'errors' => $validator->errors()->toArray()
-            ]);
+            ], 409);
         }
 
         $tag->name = $request->name;
         $tag->save();
         return response()->json([
-            'status' => 'success'
+            'status' => 'success',
+            'message' => [
+                'text' => 'Tag #' . $request->name . ' updated successfully!',
+                'type' => 'success'
+            ]
         ]);
 
     }
@@ -152,7 +157,11 @@ class TagController extends Controller
     {
         $tag->delete();
         return response()->json([
-            'status' => 'success'
+            'status' => 'success',
+            'message' => [
+                'text' => 'Tag #' . $tag->name . ' deleted successfully!',
+                'type' => 'success'
+            ]
         ]);
     }
 }

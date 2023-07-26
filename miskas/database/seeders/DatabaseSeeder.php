@@ -71,5 +71,16 @@ class DatabaseSeeder extends Seeder
             }
 
         }
+
+        foreach (range(1, 20) as $_) {
+            $colors = [];
+            foreach (range(1, rand(2, 10)) as $_) {
+                $colors[] = $faker->hexcolor;
+            }
+            DB::table('palettes')->insert([
+                'colors' => json_encode($colors)
+            ]);
+        }
+
     }
 }
