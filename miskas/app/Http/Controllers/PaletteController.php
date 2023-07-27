@@ -1,10 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Palette;
-use App\Http\Requests\StorePaletteRequest;
-use App\Http\Requests\UpdatePaletteRequest;
+use Illuminate\Http\Request;
 
 class PaletteController extends Controller
 {
@@ -27,9 +25,10 @@ class PaletteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePaletteRequest $request)
+    public function store(Request $request)
     {
-        //
+        Palette::create($request->all());
+        return redirect()->route('palettes-index');
     }
 
     /**
@@ -45,15 +44,24 @@ class PaletteController extends Controller
      */
     public function edit(Palette $palette)
     {
-        //
+        return view('palettes.edit', ['palette' => $palette]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePaletteRequest $request, Palette $palette)
+    public function update(Request $request, Palette $palette)
     {
-        //
+        $palette->update($request->all());
+        return redirect()->route('palettes-index');
+    }
+
+     /**
+     * Confirm remove the specified resource from storage.
+     */
+    public function delete(Palette $palette)
+    {
+        return view('palettes.delete', ['palette' => $palette]);
     }
 
     /**
@@ -61,6 +69,7 @@ class PaletteController extends Controller
      */
     public function destroy(Palette $palette)
     {
-        //
+        $palette->delete();
+        return redirect()->route('palettes-index');
     }
 }
